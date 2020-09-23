@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Abdulwahid Ajoge",
@@ -18,5 +19,8 @@
     "mongoose": "^5.10.6",
     "morgan": "^1.10.0",
     "underscore": "^1.11.0"
+  },
+  "engines": {
+    "node": ">=12.16.1"
   }
 }
