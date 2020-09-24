@@ -1,6 +1,7 @@
 const Redemption = require('../models/redemption');
 const Entry = require('../models/entry');
 const AppError = require('../config/appError');
+const at = require('./config/africaTalking');
 
 exports.redeemCode = async(req, res, next) => {
     try {
@@ -10,6 +11,14 @@ exports.redeemCode = async(req, res, next) => {
         if(codeExists.used) return next(new AppError('code has already been redeemed', 409));
         const redeemed = await Redemption.create({phone, code});
         // disburse vendor airtime
+        let options = {
+            recipients: [{
+                phoneNumber: phone,
+                currencyCode: "NGN",
+                amount: "50"
+            }]
+        }
+        at.sendAirtime(options);
         await codeExists.update({used: true});
         res.status(201).json({
             status: 'success',
